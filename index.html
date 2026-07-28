@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insta Loader - Premium Instagram Media Downloader & Workspace</title>
+    <meta name="description" content="Download Instagram videos, reels, photos, and slides. Organize your media library in a premium dashboard workspace. Secure, fast, and completely responsive." />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Insta Loader",
+        "url": "http://localhost:3000",
+        "description": "Download Instagram videos, reels, photos, and slides.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "http://localhost:3000/download?url={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 dark:bg-darkbg dark:text-white transition-colors duration-300 antialiased font-['Inter']">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
