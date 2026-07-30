@@ -221,20 +221,48 @@ export const DownloadWorkspace = () => {
                 Click download to pipe the file buffer directly through our streaming proxy.
               </p>
 
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {metadata.formats && metadata.formats.map((fmt, i) => (
                   <div 
                     key={i} 
-                    className="flex items-center justify-between p-4 rounded-xl bg-slate-900/30 border border-slate-800/60"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 gap-4"
                   >
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 dark:text-white">{fmt.quality}</div>
-                      <div className="text-[10px] text-slate-400 uppercase mt-0.5">{fmt.format} &bull; {fmt.size}</div>
+                    <div className="flex items-center space-x-4">
+                      {/* Visual Slide Preview */}
+                      <div className="relative h-14 w-14 rounded-lg overflow-hidden bg-slate-950 border border-slate-850 flex-shrink-0 flex items-center justify-center">
+                        {fmt.format === 'mp4' ? (
+                          <video 
+                            src={fmt.url} 
+                            className="w-full h-full object-cover" 
+                            muted 
+                            preload="metadata"
+                          />
+                        ) : (
+                          <img 
+                            src={fmt.url} 
+                            alt={fmt.quality} 
+                            className="w-full h-full object-cover" 
+                            onError={(e) => {
+                              // If image fails to load directly, fallback to first thumbnail
+                              e.target.src = metadata.thumbnail;
+                            }}
+                          />
+                        )}
+                        <span className="absolute bottom-0 right-0 px-1 rounded-tl-md bg-slate-900/80 text-[7px] font-black uppercase text-white">
+                          {fmt.format === 'mp4' ? 'video' : 'photo'}
+                        </span>
+                      </div>
+                      
+                      <div>
+                        <div className="text-xs font-bold text-slate-900 dark:text-white">{fmt.quality}</div>
+                        <div className="text-[10px] text-slate-400 uppercase mt-0.5">{fmt.format} &bull; {fmt.size}</div>
+                      </div>
                     </div>
+
                     <button
                       onClick={() => triggerProxyDownload(fmt)}
                       disabled={processingId !== null}
-                      className="px-4 py-2 rounded-button bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs transition-colors flex items-center space-x-1 disabled:opacity-40"
+                      className="w-full sm:w-auto px-4 py-2 rounded-button bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs transition-colors flex items-center justify-center space-x-1.5 disabled:opacity-40"
                     >
                       {processingId === fmt.quality ? (
                         <Loader2 className="h-3.5 w-3.5 animate-spin" />
